@@ -1,8 +1,8 @@
 <?php require_once "menu.php";
 // Výpis obsahu session
-echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
 ?>
 
 

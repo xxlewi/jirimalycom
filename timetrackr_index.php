@@ -2,51 +2,36 @@
 session_start();
 date_default_timezone_set("Europe/Prague");
 
-
-
 // Kontrola přihlášení
-if(!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username'])) {
     header('Location: user_login.php');
     exit;
 }
 
 require './db_config.php';
 require_once "menu.php";
-
-// echo "<pre>";
-// print_r($_SESSION);
-// echo "</pre>";
-
-if(isset($_POST['start_timer'])) {
-    $project = $_POST['project'];
-    $start_time = time();
-
-    // Vložení záznamu o sledování času
-    $sql = "INSERT INTO TimeTracking (user_id, project, start_time) VALUES (?, ?, ?)";
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['user_id'], $project, $start_time]);
-
-    echo "Time tracking started!";
-}
-
-if(isset($_POST['stop_timer'])) {
-    $time_tracking_id = $_POST['time_tracking_id'];
-    $end_time = time();
-
-    // Aktualizace záznamu o sledování času
-    $sql = "UPDATE TimeTracking SET end_time = ? WHERE time_tracking_id = ? AND user_id = ?";
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute([$end_time, $time_tracking_id, $_SESSION['user_id']]);
-
-    echo "Time tracking stopped!";
-}
+require_once "functions.php";
 ?>
 
 <h2>Time Tracker</h2>
 
-<form method="post" action="timetrackr_index.php">
+<form method="post" action="timetrackr_recording.php">
     <label for="project">Project:</label>
-    <input type="text" name="project" id="project" required>
+    <select name="project" id="project" required>
+        <?php
+        // Získání všech projektů uživatele
+        $sql = "SELECT * FROM timetrackr_projects WHERE user_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['user_id']]);
+        $projects = $stmt->fetchAll();
+
+        foreach ($projects as $project) {
+            echo '<option value="' . $project['project_id'] . '">' . htmlspecialchars($project['name'], ENT_QUOTES) . '</option>';
+        }
+        ?>
+    </select>
+    <label for="task">Task:</label>
+    <input type="text" id="task_name" name="task_name" required>
     <button type="submit" name="start_timer">Start Tracking</button>
 </form>
 
@@ -56,6 +41,7 @@ if(isset($_POST['stop_timer'])) {
     <thead>
         <tr>
             <th>Project</th>
+            <th>Task</th>
             <th>Start Time</th>
             <th>Stop Time</th>
             <th>Duration</th>
@@ -65,7 +51,9 @@ if(isset($_POST['stop_timer'])) {
     <tbody>
         <?php
         // Získání aktivních záznamů o sledování času
-        $sql = "SELECT * FROM TimeTracking WHERE user_id = ? AND end_time IS NULL";
+        $sql = "SELECT timetrackr.*, timetrackr_projects.name as project_name FROM timetrackr 
+        LEFT JOIN timetrackr_projects ON timetrackr.project_id = timetrackr_projects.project_id 
+        WHERE timetrackr.user_id = ? AND end_time IS NULL";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$_SESSION['user_id']]);
         $time_trackings = $stmt->fetchAll();
@@ -76,11 +64,12 @@ if(isset($_POST['stop_timer'])) {
             $duration = time() - $time_tracking['start_time'];
 
             echo '<tr>';
-            echo '<td>' . htmlspecialchars($time_tracking['project'], ENT_QUOTES) . '</td>';
+            echo '<td>' . htmlspecialchars($time_tracking['project_name'], ENT_QUOTES) . '</td>';
+            echo '<td>' . htmlspecialchars($time_tracking['name'], ENT_QUOTES) . '</td>';
             echo '<td>' . $start_time . '</td>';
             echo '<td>' . $end_time . '</td>';
             echo '<td>' . formatDuration($duration) . '</td>';
-            echo '<td><form method="post" action="timetrackr_index.php">';
+            echo '<td><form method="post" action="timetrackr_recording.php">';
             echo '<input type="hidden" name="time_tracking_id" value="' . $time_tracking['time_tracking_id'] . '">';
             echo '<button type="submit" name="stop_timer">Stop</button>';
             echo '</form></td>';
@@ -89,26 +78,3 @@ if(isset($_POST['stop_timer'])) {
         ?>
     </tbody>
 </table>
-
-
-
-
-
-
-<?php
-// Funkce pro formátování délky trvání v sekundách na formát HH:MM:SS
-function formatDuration($duration) {
-    $hours = floor($duration / 3600);
-    $minutes = floor(($duration % 3600) / 60);
-    $seconds = $duration % 60;
-
-    return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-}
-
-
-
-
-
-?>
-
-
