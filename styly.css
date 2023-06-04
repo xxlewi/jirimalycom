@@ -1,4 +1,4 @@
-/* styly.css */
+styly.css
 
 body {
     font-family: Arial, sans-serif;
@@ -6,8 +6,9 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    
 }
-
+/* 
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
@@ -50,4 +51,4 @@ a:hover {
 
 .navbar p {
     margin: 0;
-}
+} */

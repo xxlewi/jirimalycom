@@ -21,9 +21,9 @@ $stmt->execute([$_SESSION['user_id']]);
 $time_trackings = $stmt->fetchAll();
 ?>
 
-<h2>Completed Time Trackings</h2>
+<h2 class="timetrackr_list_heading">Completed Time Trackings</h2>
 
-<table>
+<table class="timetrackr_list_table">
     <thead>
         <tr>
             <th>Project</th>
@@ -43,10 +43,10 @@ $time_trackings = $stmt->fetchAll();
             $duration = $time_tracking['end_time'] - $time_tracking['start_time'];
             ?>
             <tr>
-                <form method="post" action="timetrackr_update.php">
+                <form method="post" action="timetrackr_update.php" class="timetrackr_list_form">
                     <input type="hidden" name="time_tracking_id" value="<?php echo $time_tracking['time_tracking_id']; ?>">
                     <td>
-                        <select name="project" id="project" required>
+                        <select name="project" id="project" class="timetrackr_list_select" required>
                             <?php
                             // Získání všech projektů uživatele
                             $sql = "SELECT * FROM timetrackr_projects WHERE user_id = ?";
@@ -61,22 +61,22 @@ $time_trackings = $stmt->fetchAll();
                             ?>
                         </select>
                     </td>
-                    <td><input type="text" name="name" value="<?php echo htmlspecialchars($time_tracking['name'], ENT_QUOTES); ?>"></td>
-                    <td><input type="datetime-local" name="start_time" value="<?php echo date('Y-m-d\TH:i', $time_tracking['start_time']); ?>"></td>
-                    <td><input type="datetime-local" name="end_time" value="<?php echo date('Y-m-d\TH:i', $time_tracking['end_time']); ?>"></td>
+                    <td><input type="text" name="name" value="<?php echo htmlspecialchars($time_tracking['name'], ENT_QUOTES); ?>" class="timetrackr_list_input"></td>
+                    <td><input type="datetime-local" name="start_time" value="<?php echo date('Y-m-d\TH:i', $time_tracking['start_time']); ?>" class="timetrackr_list_input"></td>
+                    <td><input type="datetime-local" name="end_time" value="<?php echo date('Y-m-d\TH:i', $time_tracking['end_time']); ?>" class="timetrackr_list_input"></td>
                     <td><?php echo formatDuration($duration); ?></td>
-                    <td><input type="text" name="note" value="<?php echo htmlspecialchars($time_tracking['note'], ENT_QUOTES); ?>"></td>
+                    <td><input type="text" name="note" value="<?php echo htmlspecialchars($time_tracking['note'], ENT_QUOTES); ?>" class="timetrackr_list_input"></td>
                     <td>
-    <button type="submit" name="update">Update</button>
-    <form method="post" action="timetrackr_delete.php">
-        <input type="hidden" name="time_tracking_id" value="<?php echo $time_tracking['time_tracking_id']; ?>">
-        <button type="submit" name="delete">Delete</button>
-    </form>
-</td>
-</form>
-</tr>
-<?php endforeach; ?>
-</tbody>
+                        <button type="submit" name="update" class="timetrackr_list_button_update">Update</button>
+                        <form method="post" action="timetrackr_delete.php" class="timetrackr_list_form_delete">
+                            <input type="hidden" name="time_tracking_id" value="<?php echo $time_tracking['time_tracking_id']; ?>">
+                            <button type="submit" name="delete" class="timetrackr_list_button_delete">Delete</button>
+                        </form>
+                    </td>
+                </form>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
 </table>
 
                        

@@ -54,37 +54,41 @@ $stmt->execute([$_SESSION['user_id']]);
 $projects = $stmt->fetchAll();
 ?>
 
-<h2>Create New Project</h2>
+<h2 class="timetrackr_projects_main_heading">Projects</h2>
 
-<form method="post" action="timetrackr_projects.php">
-    <label for="project_name">Project Name:</label>
-    <input type="text" name="project_name" required>
-    <button type="submit" name="create_project">Create Project</button>
+<form method="post" action="timetrackr_projects.php" class="timetrackr_projects_form">
+    <label for="project_name" class="timetrackr_projects_label">New Project:</label>
+    <input type="text" name="project_name" class="timetrackr_projects_input" required>
+    <button type="submit" name="create_project" class="timetrackr_projects_button_create">Create Project</button>
 </form>
 
-<h2>Projects</h2>
+<br>
 
-<table>
-    <thead>
-        <tr>
-            <th>Project Name</th>
-            <th>Action</th>
+<h3 class="timetrackr_projects_subheading">Project list</h3>
+
+<table class="timetrackr_projects_table">
+    <thead class="timetrackr_projects_table_head">
+        <tr class="timetrackr_projects_table_row">
+            <th class="timetrackr_projects_table_header">Project Name</th>
+            <th class="timetrackr_projects_table_header">Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="timetrackr_projects_table_body">
         <?php foreach ($projects as $project) : ?>
-            <tr>
-                <form method="post" action="timetrackr_projects.php">
-                    <input type="hidden" name="project_id" value="<?php echo $project['project_id']; ?>">
-                    <td>
-                        <input type="text" name="project_name" value="<?php echo htmlspecialchars($project['name'], ENT_QUOTES); ?>">
+            <tr class="timetrackr_projects_table_row">
+                <form method="post" action="timetrackr_projects.php" class="timetrackr_projects_form">
+                    <input type="hidden" name="project_id" class="timetrackr_projects_input_hidden" value="<?php echo $project['project_id']; ?>">
+                    <td class="timetrackr_projects_table_data">
+                        <input type="text" name="project_name" class="timetrackr_projects_input" value="<?php echo htmlspecialchars($project['name'], ENT_QUOTES); ?>">
                     </td>
-                    <td>
-                        <button type="submit" name="update_project">Update</button>
-                        <button type="submit" name="delete_project">Delete</button>
+                    <td class="timetrackr_projects_table_data">
+                        <button type="submit" name="update_project" class="timetrackr_projects_button_update">Update</button>
+                        <button type="submit" name="delete_project" class="timetrackr_projects_button_delete">Delete</button>
                     </td>
                 </form>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+
