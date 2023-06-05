@@ -3,7 +3,7 @@
 session_start(); // start the session
 
 require './db_config.php';
-require_once "menu.php";
+// require_once "menu.php";
 
 
 if(isset($_POST['register'])){
@@ -12,23 +12,105 @@ if(isset($_POST['register'])){
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $role = 'user'; // default role is user
 
-    $sql = "INSERT INTO Users (user_name, user_email, user_password, user_role) VALUES (?, ?, ?, ?)";
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute([$username, $email, $password, $role]);
+    // Check if the username or email already exists
+    $sql = "SELECT * FROM Users WHERE user_name = ? OR user_email = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$username, $email]);
+    $existingUser = $stmt->fetch();
 
-    // log the user in
-    $_SESSION['username'] = $username;
+    if ($existingUser) {
+        // Username or email already exists, abort and inform the user
+        echo 'Username or email already exists!';
+    } else {
+        // Username and email are unique, proceed with the registration
+        $sql = "INSERT INTO Users (user_name, user_email, user_password, user_role) VALUES (?, ?, ?, ?)";
+        $stmt= $pdo->prepare($sql);
+        $stmt->execute([$username, $email, $password, $role]);
 
-    // redirect to index.php
-    header('Location: index.php');
-    exit;
+        // log the user in
+        $_SESSION['username'] = $username;
+
+        // redirect to index.php
+        header('Location: index.php');
+        exit;
+    }
 }
+
 
 ?>
 
-<form method="post" action="user_registration.php">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit" name="register">Register</button>
-</form>
+<style>
+    .user_registration_form h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .user_registration_form p {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .user_registration_form a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    .user_registration_form a:hover {
+        text-decoration: underline;
+    }
+
+    /* Přidáváme stejné styly jako pro user_login... */
+    .user_registration_body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f9f9f9;
+    }
+
+    .user_registration_form {
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .user_registration_form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .user_registration_form button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+    .user_registration_form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+
+<body class="user_registration_body">
+    <div class="user_registration_form">
+        <h2>Register to jirimaly.com</h2>
+        <form method="post" action="user_registration.php">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" name="register">Register</button>
+        </form>
+        <p>Already have an account? <a href="user_login.php">Login</a></p>
+    </div>
+</body>

@@ -1,6 +1,6 @@
 <?php
 require './db_config.php';
-require_once "menu.php";
+// require_once "menu.php";
 
 
 if(isset($_POST['login'])) {
@@ -28,8 +28,83 @@ if(isset($_POST['login'])) {
 }
 ?>
 
-<form method="post" action="user_login.php">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit" name="login">Login</button>
-</form>
+
+
+<style>
+    .user_login_body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    .user_login_form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        width: 300px;
+    }
+
+    .user_login_form input[type="text"], .user_login_form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .user_login_form button {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .user_login_form button:hover {
+        background-color: #0056b3;
+    }
+
+
+    .user_login_form h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .user_login_form p {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .user_login_form a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    .user_login_form a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+
+<body class="user_login_body">
+    <div class="user_login_form">
+        <h2>Login to jirimaly.com</h2>
+        <form method="post" action="user_login.php">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" name="login">Login</button>
+        </form>
+        <p>Don't have an account? <a href="user_registration.php">Register</a></p>
+    </div>
+</body>
+

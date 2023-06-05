@@ -1,13 +1,36 @@
+
+
 /* ################################# TRACK ################################# */
 
 
 
+
+.timetrackr_track_main_heading {
+    font-size: 2.5em;
+    color: #007BFF;  /* mění barvu písma na modrou */
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+    font-family: 'Helvetica', 'Arial', sans-serif; /* mění font na něco modernějšího */
+    letter-spacing: 1px; /* zvyšuje rozestupy mezi písmeny pro lepší čitelnost */
+    
+    transition: color 0.3s ease; /* přechod pro barvu textu */
+}
+
+/* efekt při najetí myši */
+.timetrackr_track_main_heading:hover {
+    color: #0056b3;
+}
+
+
+
 /* Styl pro titulní stránku TimeTrackr */
-.timetrackr_track_title {
-    font-size: 2.5rem;
+.timetrackr_track_active_heading {
+    font-size: 1.5em;
     color: #333;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
 /* Styl pro popis stránky TimeTrackr */
@@ -28,8 +51,13 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    margin: auto;
     margin-bottom: 2rem;
+    align-items: baseline;
+    max-width: 800px;
+    align-content: stretch;
 }
+
 
 .timetrackr_track_form label {
     font-size: 1.2rem;
@@ -46,7 +74,7 @@
 .timetrackr_track_form button {
     padding: 0.5rem 2rem;
     font-size: 1rem;
-    background-color: #007BFF;
+    background-color: #5cb85c;
     color: #fff;
     border: none;
     border-radius: 20px;
@@ -55,7 +83,7 @@
 }
 
 .timetrackr_track_form button:hover {
-    background-color: #0056b3;
+    background-color: #448944;
 }
 
 /* Styl pro tabulku s aktivními záznamy o sledování času */
@@ -132,7 +160,7 @@
 
 /* Main Heading */
 .timetrackr_list_heading {
-    font-size: 2em;
+    font-size: 1.5em;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
@@ -146,7 +174,8 @@
 }
 
 .timetrackr_list_table th {
-    background-color: #f8f9fa;
+    background-color: #007BFF;
+    color: #fff;
 }
 
 .timetrackr_list_table tr:nth-child(even) {
@@ -154,8 +183,9 @@
 }
 
 .timetrackr_list_table th, .timetrackr_list_table td {
-    padding: 10px;
-    text-align: left;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #ccc;
 }
 
 /* Form styles */
@@ -188,12 +218,12 @@
 }
 
 .timetrackr_list_button_update {
-    background-color: #4CAF50;
+    background-color: #007BFF;
     color: white;
 }
 
 .timetrackr_list_button_update:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 .timetrackr_list_button_delete {
@@ -207,13 +237,14 @@
 
 
 
+
 /* ################################# PROJECTS ################################# */
 
 
 
 /* Main Heading */
 .timetrackr_projects_main_heading {
-    font-size: 2em;
+    font-size: 1.5em;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
@@ -222,13 +253,21 @@
 /* Form styles */
 .timetrackr_projects_form {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
     margin-bottom: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 400px;
 }
+
 
 .timetrackr_projects_label {
     margin-right: 10px;
 }
+
+
 
 .timetrackr_projects_input {
     flex-grow: 1;
@@ -259,6 +298,19 @@
 .timetrackr_projects_table {
     width: 100%;
     border-collapse: collapse;
+}
+
+
+
+.timetrackr_projects_table th, .timetrackr_projects_table td {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.timetrackr_projects_table thead {
+    background-color: #007BFF;
+    color: #fff;
 }
 
 .timetrackr_projects_table_head {

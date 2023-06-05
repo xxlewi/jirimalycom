@@ -28,7 +28,7 @@ if (isset($_POST['update'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$project_id, $task_name, $note, $start_timestamp, $end_timestamp, $time_tracking_id]);
 
-    header("Location: timetrackr_list.php");
+    header("Location: timetrackr_index.php");
     exit;
 } else if (isset($_POST['delete'])) {
     $time_tracking_id = $_POST['time_tracking_id'];
@@ -39,7 +39,7 @@ if (isset($_POST['update'])) {
     $stmt->execute([$time_tracking_id]);
 
     echo "Time tracking deleted!";
-    header("Location: timetrackr_list.php");
+    header("Location: timetrackr_index.php");
     exit;
 } else {
     echo "Invalid request!";

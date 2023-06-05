@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="styly.css">
+    <link rel="stylesheet" type="text/css" href="global_styles.css">
 
     <style>
         .navbar {
@@ -13,14 +13,25 @@ session_start();
             background-color: #333;
             padding: 15px;
             color: white;
+            align-items: center;
         }
         .navbar a {
             color: white;
             text-decoration: none;
             margin-left: 15px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #ddd;
         }
         .navbar p {
             margin: 0;
+            order: -1;
+        }
+        .navbar .user-section {
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
         }
     </style>
 </head>

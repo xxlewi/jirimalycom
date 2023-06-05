@@ -35,7 +35,7 @@ require_once "functions.php";
         }
         ?>
     </select>
-    <label for="task" class="timetrackr_track_label">Task:</label>
+    <label for="task" class="timetrackr_track_label">Task*:</label>
     <input type="text" id="task_name" name="task_name" class="timetrackr_track_input" required>
     <button type="submit" name="start_timer" class="timetrackr_track_button_start">Start Tracking</button>
     

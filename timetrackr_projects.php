@@ -18,8 +18,9 @@ if (isset($_POST['create_project'])) {
     $sql = "INSERT INTO timetrackr_projects (user_id, name) VALUES (?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['user_id'], $projectName]);
-
+    
     echo "New project created!";
+    header("Location: timetrackr_index.php");
 }
 
 // Aktualizace názvu projektu
@@ -33,6 +34,7 @@ if (isset($_POST['update_project'])) {
     $stmt->execute([$projectName, $projectId, $_SESSION['user_id']]);
 
     echo "Project name updated!";
+    header("Location: timetrackr_index.php");
 }
 
 // Odstranění projektu
@@ -45,6 +47,7 @@ if (isset($_POST['delete_project'])) {
     $stmt->execute([$projectId, $_SESSION['user_id']]);
 
     echo "Project deleted!";
+    header("Location: timetrackr_index.php");
 }
 
 // Získání všech projektů uživatele
