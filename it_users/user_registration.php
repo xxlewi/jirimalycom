@@ -1,10 +1,9 @@
 <?php
-
 session_start(); // start the session
 
-require './db_config.php';
-// require_once "menu.php";
+require '../it_config/db_config.php';
 
+$error = '';
 
 if(isset($_POST['register'])){
     $username = $_POST['username'];
@@ -20,7 +19,7 @@ if(isset($_POST['register'])){
 
     if ($existingUser) {
         // Username or email already exists, abort and inform the user
-        echo 'Username or email already exists!';
+        $error = 'Username or email already exists!';
     } else {
         // Username and email are unique, proceed with the registration
         $sql = "INSERT INTO Users (user_name, user_email, user_password, user_role) VALUES (?, ?, ?, ?)";
@@ -31,12 +30,10 @@ if(isset($_POST['register'])){
         $_SESSION['username'] = $username;
 
         // redirect to index.php
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit;
     }
 }
-
-
 ?>
 
 <style>
@@ -98,19 +95,29 @@ if(isset($_POST['register'])){
     .user_registration_form button:hover {
         background-color: #0056b3;
     }
+    
+    .error {
+        color: red;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 </style>
-
-
 
 <body class="user_registration_body">
     <div class="user_registration_form">
-        <h2>Register to jirimaly.com</h2>
+        <h2>Register to <a href="/">onestopit.cz</a></h2>
         <form method="post" action="user_registration.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
+            <?php
+            if ($error) {
+                echo "<p class='error'>$error</p>";
+            }
+            ?>
             <button type="submit" name="register">Register</button>
         </form>
-        <p>Already have an account? <a href="user_login.php">Login</a></p>
+        <p>Already have an account? <a href="./user_login.php">Login</a></p>
     </div>
 </body>
+

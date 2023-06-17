@@ -4,23 +4,22 @@
 
 <?php
 session_start();
-date_default_timezone_set("Europe/Prague");
+// date_default_timezone_set("Europe/Prague");
 
-// Kontrola přihlášení
-if (!isset($_SESSION['username'])) {
-    header('Location: user_login.php');
-    exit;
-}
+// // Kontrola přihlášení
+// if (!isset($_SESSION['username'])) {
+//     header('Location: user_login.php');
+//     exit;
+// }
 
-require './db_config.php';
-require_once "menu.php";
-require_once "functions.php";
+require_once '../it_config/db_config.php';
+require_once "../it_config/functions.php";
 ?>
 <h1 class="timetrackr_track_main_heading">TimeTrackr</h1>
 
-<p class="timetrackr_track_description">Time Tracker je webová aplikace, která vám umožňuje efektivně sledovat a spravovat váš čas. Je navržena tak, aby vám pomohla sledovat čas strávený na různých projektech a úkolech, a tím zlepšit produktivitu a organizaci vaší práce.</p>
-
-<form method="post" action="timetrackr_recording.php" class="timetrackr_track_form">
+<!-- <p class="timetrackr_track_description">Time Tracker je webová aplikace, která vám umožňuje efektivně sledovat a spravovat váš čas. Je navržena tak, aby vám pomohla sledovat čas strávený na různých projektech a úkolech, a tím zlepšit produktivitu a organizaci vaší práce.</p> -->
+<p class="timetrackr_track_description">Time Tracker is a web application that allows you to effectively track and manage your time. It is designed to help you monitor the time spent on various projects and tasks, thereby improving your productivity and organization of work.</p>
+<form method="post" action="./timetrackr_recording.php" class="timetrackr_track_form">
     <label for="project" class="timetrackr_track_label">Project:</label>
     <select name="project" id="project" class="timetrackr_track_select" required>
         <?php

@@ -1,7 +1,8 @@
 <?php
-require './db_config.php';
+require '../it_config/db_config.php';
 // require_once "menu.php";
 
+$error = '';
 
 if(isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -20,17 +21,25 @@ if(isset($_POST['login'])) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['user_role'] = $user['user_role'];
         
-        echo 'Successfully logged in!';
-        header("Location: index.php");
+        header("Location: ../index.php");
+        exit;
     } else {
-        echo 'Invalid username or password!';
+        $error = 'Invalid username or password!';
     }
 }
 ?>
 
 
 
+
 <style>
+
+    .error {
+        color: red;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
     .user_login_body {
         font-family: Arial, sans-serif;
         background-color: #f5f5f5;
@@ -98,13 +107,19 @@ if(isset($_POST['login'])) {
 
 <body class="user_login_body">
     <div class="user_login_form">
-        <h2>Login to jirimaly.com</h2>
+        <h2>Login to <a href="/">onestopit.cz</a></h2>
         <form method="post" action="user_login.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
+            <?php
+            if ($error) {
+                echo "<p class='error'>$error</p>";
+            }
+            ?>
             <button type="submit" name="login">Login</button>
         </form>
-        <p>Don't have an account? <a href="user_registration.php">Register</a></p>
+        <p>Don't have an account? <a href="./user_registration.php">Register</a></p>
     </div>
 </body>
+
 

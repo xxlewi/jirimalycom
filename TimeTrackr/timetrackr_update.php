@@ -1,15 +1,16 @@
 <?php
-session_start();
-require_once "functions.php";
-date_default_timezone_set("Europe/Prague");
+// session_start();
 
-// Kontrola přihlášení
-if (!isset($_SESSION['username'])) {
-    header('Location: user_login.php');
-    exit;
-}
+// date_default_timezone_set("Europe/Prague");
 
-require './db_config.php';
+// // Kontrola přihlášení
+// if (!isset($_SESSION['username'])) {
+//     header('Location: user_login.php');
+//     exit;
+// }
+
+require_once '../it_config/db_config.php';
+require_once "../it_config/functions.php";
 
 if (isset($_POST['update'])) {
     $time_tracking_id = $_POST['time_tracking_id'];
@@ -28,7 +29,7 @@ if (isset($_POST['update'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$project_id, $task_name, $note, $start_timestamp, $end_timestamp, $time_tracking_id]);
 
-    header("Location: timetrackr_index.php");
+    header("Location: ./");
     exit;
 } else if (isset($_POST['delete'])) {
     $time_tracking_id = $_POST['time_tracking_id'];
@@ -39,7 +40,7 @@ if (isset($_POST['update'])) {
     $stmt->execute([$time_tracking_id]);
 
     echo "Time tracking deleted!";
-    header("Location: timetrackr_index.php");
+    header("Location: ./");
     exit;
 } else {
     echo "Invalid request!";

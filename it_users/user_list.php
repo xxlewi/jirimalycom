@@ -1,5 +1,5 @@
 <?php
-require './db_config.php';
+require_once '../it_config/db_config.php';
 
 $sql = "SELECT user_id, user_name, user_email, user_role FROM Users";
 $stmt = $pdo->prepare($sql);
@@ -15,25 +15,13 @@ foreach ($users as $user) {
     echo '<td>' . htmlspecialchars($user['user_name'], ENT_QUOTES) . '</td>';
     echo '<td>' . htmlspecialchars($user['user_email'], ENT_QUOTES) . '</td>';
     echo '<td>' . htmlspecialchars($user['user_role'], ENT_QUOTES) . '</td>';
-    echo '<td><button onclick="deleteUser(' . $user['user_id'] . ')">Delete</button></td>';
+    echo '<td>
+            <form method="POST" action="user_delete.php">
+                <input type="hidden" name="user_id_selected" value="' . $user['user_id'] . '">
+                <input type="submit" value="Delete">
+            </form>
+          </td>';
     echo '</tr>';
-
 }
 echo '</table>';
 ?>
-
-
-<script>
-function deleteUser(userId) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'user_delete.php', true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            alert("User deleted successfully");
-            location.reload();
-        }
-    }
-    xhr.send("user_id=" + userId);
-}
-</script>

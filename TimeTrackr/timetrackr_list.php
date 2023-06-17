@@ -1,16 +1,15 @@
 <?php
-session_start();
-date_default_timezone_set("Europe/Prague");
+// session_start();
+// date_default_timezone_set("Europe/Prague");
 
-// Kontrola přihlášení
-if (!isset($_SESSION['username'])) {
-    header('Location: user_login.php');
-    exit;
-}
+// // Kontrola přihlášení
+// if (!isset($_SESSION['username'])) {
+//     header('Location: user_login.php');
+//     exit;
+// }
 
-require './db_config.php';
-require_once "menu.php";
-require_once "./functions.php";
+// require '../it_config/db_config.php';
+// require_once "../it_config/functions.php";
 
 // Získání ukončených záznamů o sledování času pro přihlášeného uživatele
 $sql = "SELECT timetrackr.*, timetrackr_projects.name as project_name FROM timetrackr 
@@ -43,7 +42,7 @@ $time_trackings = $stmt->fetchAll();
             $duration = $time_tracking['end_time'] - $time_tracking['start_time'];
             ?>
             <tr>
-                <form method="post" action="timetrackr_update.php" class="timetrackr_list_form">
+                <form method="post" action="./timetrackr_update.php" class="timetrackr_list_form">
                     <input type="hidden" name="time_tracking_id" value="<?php echo $time_tracking['time_tracking_id']; ?>">
                     <td>
                         <select name="project" id="project" class="timetrackr_list_select" required>

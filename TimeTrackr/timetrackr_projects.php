@@ -1,14 +1,16 @@
 <?php
 session_start();
 
-// Kontrola přihlášení
-if (!isset($_SESSION['username'])) {
-    header('Location: user_login.php');
-    exit;
-}
+// // Kontrola přihlášení
+// if (!isset($_SESSION['username'])) {
+//     header('Location: user_login.php');
+//     exit;
+// }
 
-require './db_config.php';
-require_once "menu.php";
+// // require './db_config.php';
+// // require_once "menu.php";
+require_once "../it_config/db_config.php";
+require_once "../it_config/functions.php";
 
 // Vytvoření nového projektu
 if (isset($_POST['create_project'])) {
@@ -20,7 +22,7 @@ if (isset($_POST['create_project'])) {
     $stmt->execute([$_SESSION['user_id'], $projectName]);
     
     echo "New project created!";
-    header("Location: timetrackr_index.php");
+    header("Location: ./");
 }
 
 // Aktualizace názvu projektu
@@ -34,7 +36,7 @@ if (isset($_POST['update_project'])) {
     $stmt->execute([$projectName, $projectId, $_SESSION['user_id']]);
 
     echo "Project name updated!";
-    header("Location: timetrackr_index.php");
+    header("Location: ./");
 }
 
 // Odstranění projektu
@@ -47,7 +49,7 @@ if (isset($_POST['delete_project'])) {
     $stmt->execute([$projectId, $_SESSION['user_id']]);
 
     echo "Project deleted!";
-    header("Location: timetrackr_index.php");
+    header("Location: ./");
 }
 
 // Získání všech projektů uživatele
@@ -59,7 +61,7 @@ $projects = $stmt->fetchAll();
 
 <h2 class="timetrackr_projects_main_heading">Projects</h2>
 
-<form method="post" action="timetrackr_projects.php" class="timetrackr_projects_form">
+<form method="post" action="./timetrackr_projects.php" class="timetrackr_projects_form">
     <label for="project_name" class="timetrackr_projects_label">New Project:</label>
     <input type="text" name="project_name" class="timetrackr_projects_input" required>
     <button type="submit" name="create_project" class="timetrackr_projects_button_create">Create Project</button>
@@ -79,7 +81,7 @@ $projects = $stmt->fetchAll();
     <tbody class="timetrackr_projects_table_body">
         <?php foreach ($projects as $project) : ?>
             <tr class="timetrackr_projects_table_row">
-                <form method="post" action="timetrackr_projects.php" class="timetrackr_projects_form">
+                <form method="post" action="./timetrackr_projects.php" class="timetrackr_projects_form">
                     <input type="hidden" name="project_id" class="timetrackr_projects_input_hidden" value="<?php echo $project['project_id']; ?>">
                     <td class="timetrackr_projects_table_data">
                         <input type="text" name="project_name" class="timetrackr_projects_input" value="<?php echo htmlspecialchars($project['name'], ENT_QUOTES); ?>">

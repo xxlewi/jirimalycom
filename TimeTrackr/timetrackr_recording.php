@@ -2,16 +2,18 @@
 
 <?php
 session_start();
-date_default_timezone_set("Europe/Prague");
-require_once "functions.php";
+// date_default_timezone_set("Europe/Prague");
+// // require_once "functions.php";
 
-// Kontrola přihlášení
-if (!isset($_SESSION['username'])) {
-    header('Location: user_login.php');
-    exit;
-}
+// // Kontrola přihlášení
+// if (!isset($_SESSION['username'])) {
+//     header('Location: user_login.php');
+//     exit;
+// }
 
-require './db_config.php';
+// require './db_config.php';
+require_once '../it_config/db_config.php';
+require_once "../it_config/functions.php";
 
 if (isset($_POST['start_timer'])) {
     $project = $_POST['project'];
@@ -23,7 +25,7 @@ if (isset($_POST['start_timer'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['user_id'], $project, $name, $start_time]);
 
-    header("Location: timetrackr_index.php");  // Přesměrování zpět na stránku se sledováním času
+    header("Location: ./");  // Přesměrování zpět na stránku se sledováním času
     exit;
 }
 
@@ -36,7 +38,7 @@ if (isset($_POST['stop_timer'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$end_time, $time_tracking_id, $_SESSION['user_id']]);
 
-    header("Location: timetrackr_index.php");  // Přesměrování zpět na stránku se sledováním času
+    header("Location: ./");  // Přesměrování zpět na stránku se sledováním času
     exit;
 }
 
@@ -51,7 +53,7 @@ if (isset($_POST['quick_timer'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['user_id'], $project, $name, $start_time, $start_time + $duration]);
 
-    header("Location: timetrackr_index.php");  // Přesměrování zpět na stránku se sledováním času
+    header("Location: ./");  // Přesměrování zpět na stránku se sledováním času
     exit;
 }
 
