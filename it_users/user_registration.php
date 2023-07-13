@@ -26,6 +26,23 @@ if(isset($_POST['register'])){
         $stmt= $pdo->prepare($sql);
         $stmt->execute([$username, $email, $password, $role]);
 
+        // Generate a unique verification token
+        $token = bin2hex(random_bytes(50));
+
+        // Save the verification token to the database
+        $sql = "UPDATE Users SET email_verification_token = ? WHERE user_name = ?";
+        $stmt= $pdo->prepare($sql);
+        $stmt->execute([$token, $username]);
+
+        // Send a verification email
+        $verification_link = "https://onestopit.cz/verify.php?token=$token";
+        $subject = "Please verify your email address";
+        $body = "Thank you for registering. Click on this link to verify your email address: $verification_link";
+        mail($email, $subject, $body);
+
+
+
+
         // log the user in
         $_SESSION['username'] = $username;
 
