@@ -50,8 +50,12 @@ session_start();
                 <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#" style="color: rgba(224,217,217,0.9);">Services </a>
                     <div class="dropdown-menu" data-bs-popper="none" style="color: rgb(255,255,255);">
                         <a class="dropdown-item" href="/TimeTrackr/" style="color: rgb(255,255,255);">TimeTrackr</a>
-                        <!-- <a class="dropdown-item" href="#" style="color: rgb(255,255,255);">Order Services</a>
-                        <a class="dropdown-item" href="#" style="color: rgb(255,255,255);">Custom Request</a> -->
+                        <a class="dropdown-item" href="/YouDL/" style="color: rgb(255,255,255);">YouDL</a>
+                        <a class="dropdown-item" href="/CalcUnique/" style="color: rgb(255,255,255);">CalcUnique</a>
+                        <a class="dropdown-item" href="/LensGrid/" style="color: rgb(255,255,255);">LensGrid</a>
+
+
+                        
                     </div>
                 </li>
                 <!-- <li class="nav-item"><a class="nav-link" href="about.html" style="color: rgba(224,217,217,0.9);">about </a></li>

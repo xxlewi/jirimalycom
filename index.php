@@ -1,3 +1,16 @@
+
+<?php
+session_start();
+?>
+
+<script type="text/javascript">
+    <?php if (isset($_SESSION['message'])): ?>
+        alert("<?php echo $_SESSION['message']; ?>");
+        <?php unset($_SESSION['message']); ?>
+    <?php endif; ?>
+</script>
+
+
 <?php require_once "./menu.php"; ?>
 
 <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 600px;">
@@ -90,7 +103,7 @@
     <div class="container py-4 py-xl-5">
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
             <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                <div class="text-start p-4"><span class="badge rounded-pill bg-primary mb-2">Article</span>
+                <div class="text-start p-4"><span class="badge rounded-pill bg-primary mb-2">Beta</span>
                     <h4>TimeTrackr: Your Reliable Tool for Time Tracking and Invoicing</h4>
                     <p>TimeTrackr is an intuitive online time-tracking tool that simplifies reporting your work time for invoicing. With TimeTrackr, you can accurately track the time spent on various tasks and projects, allowing you to create precise and detailed invoices for your clients. It's easily accessible from anywhere and is designed to easily adapt to your needs. Simplify your invoicing process today - try TimeTrackr for free!</p>
                     <div class="d-flex justify-content-end" style="margin-right: 25px;"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="assets/img/jiri_maly.jpg">
@@ -103,6 +116,27 @@
             </div>
         </div>
     </div>
+
+    <div class="container py-4 py-xl-5">
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="text-start p-4"><span class="badge rounded-pill bg-primary mb-2">Beta</span>
+                    <h4>LensGrid: Your Universal Partner for Photos and Videos</h4>
+                    <p>LensGrid is an intuitive online platform that lets you share and manage your photos and videos with ease. This unique app allows you to create your own portfolio and share your visual projects with the world.
+                        Create your own unique photo and video portfolio and share it with the world. Follow the work of other talented photographers, comment on their work, and gain inspiration for your next projects.
+                        LensGrid is designed to adapt to your needs. It's easily accessible from anywhere and allows you to keep track of your photos and videos in one place.
+                        Dive into the world of photography and video - try LensGrid for free today!</p>
+                    <div class="d-flex justify-content-end" style="margin-right: 25px;"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="assets/img/jiri_maly.jpg">
+                        <div>
+                            <p class="fw-bold mb-0">Jiří Malý</p>
+                            <p class="text-muted mb-0">Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section class="py-4 py-xl-5">
         <div class="container">
             <div class="text-white bg-dark border rounded border-0 border-light d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5">
@@ -118,45 +152,49 @@
         </div>
     </section>
     <section class="getintouch">
-        <div class="container modern-form">
-            <div class="text-center">
-                <h4 style="color: #212529;font-size: 45px;">Get in touch</h4>
-            </div>
-            <hr class="modern-form__hr">
-            <div class="modern-form__form-container">
-                <form>
-                    <div class="row">
-                        <div class="col col-contact">
-                            <div class="modern-form__form-group--padding-r form-group mb-3"><input class="form-control input input-tr" type="text" placeholder="First Name">
-                                <div class="line-box">
-                                    <div class="line"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-contact">
-                            <div class="modern-form__form-group--padding-l form-group mb-3"><input class="form-control input input-tr" type="text" placeholder="Email">
-                                <div class="line-box">
-                                    <div class="line"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="modern-form__form-group--padding-t form-group mb-3"><textarea class="form-control input modern-form__form-control--textarea" placeholder="Message"></textarea>
-                                <div class="line-box">
-                                    <div class="line"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-center"><button class="btn btn-primary submit-now" type="submit" style="background: var(--bs-primary);border-radius: 10px;">Submit Now</button></div>
-                    </div>
-                </form>
-            </div>
+    <div class="container modern-form">
+        <div class="text-center">
+            <h4 style="color: #212529;font-size: 45px;">Get in touch</h4>
         </div>
-    </section>
+        <hr class="modern-form__hr">
+        <div class="modern-form__form-container">
+            <form action="send_email.php" method="post">
+                <div class="row">
+                    <div class="col col-contact">
+                        <div class="modern-form__form-group--padding-r form-group mb-3">
+                            <input class="form-control input input-tr" type="text" name="name" placeholder="First Name">
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-contact">
+                        <div class="modern-form__form-group--padding-l form-group mb-3">
+                            <input class="form-control input input-tr" type="email" name="email" placeholder="Email">
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="modern-form__form-group--padding-t form-group mb-3">
+                            <textarea class="form-control input modern-form__form-control--textarea" name="message" placeholder="Message"></textarea>
+                            <div class="line-box">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center"><button class="btn btn-primary submit-now" type="submit" style="background: var(--bs-primary);border-radius: 10px;">Submit Now</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
     <footer class="text-center bg-dark">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
@@ -179,3 +217,4 @@
 </body>
 
 </html>
+
