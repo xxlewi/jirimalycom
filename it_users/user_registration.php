@@ -52,8 +52,55 @@ if(isset($_POST['register'])){
     }
 }
 ?>
-
 <style>
+    .error {
+        color: red;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .user_registration_body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    .user_registration_form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        width: 300px;
+    }
+
+    .user_registration_form input[type="text"], .user_registration_form input[type="password"], .user_registration_form input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .user_registration_form button {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .user_registration_form button:hover {
+        background-color: #0056b3;
+    }
+
     .user_registration_form h2 {
         text-align: center;
         color: #333;
@@ -72,53 +119,8 @@ if(isset($_POST['register'])){
     .user_registration_form a:hover {
         text-decoration: underline;
     }
-
-    /* Přidáváme stejné styly jako pro user_login... */
-    .user_registration_body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f9f9f9;
-    }
-
-    .user_registration_form {
-        width: 300px;
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    .user_registration_form input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    .user_registration_form button {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #007BFF;
-        color: #fff;
-        font-size: 1em;
-        cursor: pointer;
-    }
-
-    .user_registration_form button:hover {
-        background-color: #0056b3;
-    }
-    
-    .error {
-        color: red;
-        margin-bottom: 10px;
-        text-align: center;
-    }
 </style>
+
 
 <body class="user_registration_body">
     <div class="user_registration_form">

@@ -21,6 +21,13 @@ if(isset($_POST['login'])) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['user_role'] = $user['user_role'];
         
+
+        // Log
+        $stmt = $pdo->prepare('INSERT INTO UserActivity (user_id, activity) VALUES (?, ?)');
+        $stmt->execute([$user['user_id'], 'User logged in']);
+
+
+
         header("Location: ../index.php");
         exit;
     } else {
@@ -46,7 +53,7 @@ if(isset($_POST['login'])) {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        /* height: 100vh; */
         margin: 0;
         padding: 0;
     }
@@ -119,6 +126,7 @@ if(isset($_POST['login'])) {
             <button type="submit" name="login">Login</button>
         </form>
         <p>Don't have an account? <a href="./user_registration.php">Register</a></p>
+        <p><a href="/forgot_password.php">Forgot password?</a></p>
     </div>
 </body>
 
